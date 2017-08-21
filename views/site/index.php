@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $this->title = 'My Yii Application';
 ?>
 <div id="headerwrap">
@@ -216,11 +218,11 @@ $this->title = 'My Yii Application';
         <div class="col-lg-3">
             <h4>Latest Posts</h4>
             <div class="hline"></div>
-            <p><a href="single-post.html">Our new site is live now.</a></p>
-            <p><a href="single-post.html">Retina ready is not an option.</a></p>
-            <p><a href="single-post.html">Bootstrap 3 framework is the best.</a></p>
-            <p><a href="single-post.html">You need this theme, buy it now.</a></p>
-            <p><a href="single-post.html">This theme is what you need.</a></p>
+            <?php if(!empty($posts)): ?>
+            <?php foreach ($posts as $post):?>
+                        <p><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>"><?= $post->title ?></a></p>
+            <?php endforeach; ?>
+            <?php endif; ?>
         </div>
 
     </div><! --/row -->

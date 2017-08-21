@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Posts;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -10,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Comments;
+
 
 class SiteController extends Controller
 {
@@ -62,9 +65,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = Posts::find()->select('id, title, description')->orderBy('id DESC');
+        $pages = new Pagination (['totalCount' => $query->count(), 'pageSize' => 4]);
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+        return $this->render('index', compact('posts','pages'));
     }
-
+    public function actionView () {
+        $id = \Yii::$app->request->get('id');
+        $post = Posts::findOne($id);
+        return $this->render('view', compact('post'));
+    }
     /**
      * Login action.
      *

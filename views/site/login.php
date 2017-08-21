@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= Html::encode($this->title) ?></h1>
 
             <h4>Вход в админ панель:</h4>
-            <h4><?= Yii::$app->getSecurity()->generatePasswordHash('123') ?></h4>
+<!--            <h4>--><?//= Yii::$app->getSecurity()->generatePasswordHash('123') ?><!--</h4>-->
 
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
