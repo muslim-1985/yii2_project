@@ -7,6 +7,7 @@
  */
 
 namespace app\controllers;
+use app\models\Cats;
 use app\models\Posts;
 use yii\data\Pagination;
 
@@ -16,11 +17,13 @@ class PostController extends AppController
      * @return string
      */
     public function actionIndex () {
-        $query = Posts::find()->select('id, title, description')->orderBy('id DESC');
+        $query = Posts::find()->select('id, title, description, image, cat_id')->orderBy('id DESC');
+        $queryCats = Cats::find()->all();
+        $oneCats = Cats::find()->where(['id'=>'1'])->one();
         $pages = new Pagination (['totalCount' => $query->count(), 'pageSize' => 2]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
 
-        return $this->render('index', compact('posts','pages'));
+        return $this->render('index', compact('posts','pages', 'post','queryCats','oneCats'));
     }
 
     public function actionView () {

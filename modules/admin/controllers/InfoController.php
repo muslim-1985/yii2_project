@@ -2,20 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
-use app\modules\admin\models\ImagesUpload;
 use Yii;
-use app\modules\admin\models\Post;
-use app\modules\admin\models\PostSearch;
+use app\modules\admin\models\Info;
+use app\modules\admin\models\InfoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
-
 
 /**
- * PostController implements the CRUD actions for Post model.
+ * InfoController implements the CRUD actions for Info model.
  */
-class PostController extends Controller
+class InfoController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +30,12 @@ class PostController extends Controller
     }
 
     /**
-     * Lists all Post models.
+     * Lists all Info models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PostSearch();
+        $searchModel = new InfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class PostController extends Controller
     }
 
     /**
-     * Displays a single Post model.
+     * Displays a single Info model.
      * @param integer $id
      * @return mixed
      */
@@ -60,13 +57,13 @@ class PostController extends Controller
     }
 
     /**
-     * Creates a new Post model.
+     * Creates a new Info model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Post();
+        $model = new Info();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +75,7 @@ class PostController extends Controller
     }
 
     /**
-     * Updates an existing Post model.
+     * Updates an existing Info model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +94,7 @@ class PostController extends Controller
     }
 
     /**
-     * Deletes an existing Post model.
+     * Deletes an existing Info model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -109,30 +106,16 @@ class PostController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionSetImage($id)
-    {
-        $model = new ImagesUpload();
-        if(Yii::$app->request->post()) {
-            $post = $this->findModel($id);
-            $file = $model->image = UploadedFile::getInstance($model, 'image');
-            if($post->saveImage($model->uploadFile($file, $post->image)))
-            {
-                    return $this->redirect(['view', 'id'=>$post->id]);
-            }
-        }
-        return $this->render('image', ['model' => $model]);
-    }
-
     /**
-     * Finds the Post model based on its primary key value.
+     * Finds the Info model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Post the loaded model
+     * @return Info the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Post::findOne($id)) !== null) {
+        if (($model = Info::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -17,4 +17,12 @@ class Posts extends ActiveRecord
     {
         return 'post';
     }
+    public function getImage()
+    {
+        return ($this->image) ? \Yii::getAlias('@web') . '/img/' . $this->image : '/browser.png';
+    }
+    public function getCat()
+    {
+        return $this->hasOne(Cats::className(), ['id' => 'cat_id']);
+    }
 }

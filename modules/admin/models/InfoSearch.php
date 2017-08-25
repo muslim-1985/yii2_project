@@ -5,12 +5,12 @@ namespace app\modules\admin\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\Post;
+use app\modules\admin\models\Info;
 
 /**
- * PostSearch represents the model behind the search form about `app\modules\admin\models\Post`.
+ * InfoSearch represents the model behind the search form about `app\modules\admin\models\Info`.
  */
-class PostSearch extends Post
+class InfoSearch extends Info
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id', 'cat_id'], 'integer'],
-            [['title', 'description', 'content'], 'safe'],
+            [['id', 'phone'], 'integer'],
+            [['site_name', 'description', 'email'], 'safe'],
         ];
     }
 
@@ -41,20 +41,12 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find()->with(['cat']);
+        $query = Info::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 4
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC
-                ]
-            ]
         ]);
 
         $this->load($params);
@@ -68,12 +60,12 @@ class PostSearch extends Post
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'cat_id' => $this->cat_id,
+            'phone' => $this->phone,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
+        $query->andFilterWhere(['like', 'site_name', $this->site_name])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

@@ -17,4 +17,8 @@ class Cats extends ActiveRecord
     {
         return 'categories';
     }
+    public function getPosts()
+    {
+        return $this->hasMany(Posts::className(), ['cat_id' => 'id']);
+    }
 }

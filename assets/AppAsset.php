@@ -24,14 +24,13 @@ class AppAsset extends AssetBundle
             'css/font-awesome.min.css',
     ];
     public $js = [
-        'js/modernizr.js',
-        'js/bootstrap.min.js',
         'js/retina-1.1.0.js',
         'js/jquery.hoverdir.js',
         'js/jquery.hoverex.min.js',
         'js/jquery.prettyPhoto.js',
         'js/jquery.isotope.min.js',
         'js/custom.js',
+        'js/modernizr.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

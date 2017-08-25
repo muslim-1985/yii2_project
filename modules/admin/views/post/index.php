@@ -35,6 +35,13 @@ use yii\grid\GridView;
                             'attribute' => 'cat_id',
                             'value' => 'cat.name',
                         ],
+                        [
+                            'format' => 'html',
+                            'label' => 'Изображение',
+                            'value' => function($data){
+                                return Html::img($data->getImage(), ['width'=>200]);
+                            }
+                        ],
 
                         ['class' => 'yii\grid\ActionColumn'],
                     ],

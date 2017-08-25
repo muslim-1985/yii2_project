@@ -49,6 +49,7 @@ class Post extends \yii\db\ActiveRecord
             'title' => 'Заголовок',
             'description' => 'Описание',
             'content' => 'Контент',
+            'image' => 'Изображение',
             'cat_id' => 'Категория',
         ];
     }
@@ -60,4 +61,22 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Categories::className(), ['id' => 'cat_id']);
     }
+
+    public function saveImage($filename)
+    {
+        $this->image = $filename;
+        return $this->save(false);
+    }
+
+    public function getImage()
+    {
+        return ($this->image) ? 'img/' . $this->image : '/browser.png';
+    }
+
+    public function deleteImage()
+    {
+        $imageUploadModel = new ImagesUpload();
+        $imageUploadModel->deleteCurrentImage($this->image);
+    }
+
 }
