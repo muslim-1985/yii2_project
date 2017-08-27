@@ -28,8 +28,8 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name','slug'], 'required'],
+            [['name', 'slug'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,6 +40,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'slug' => 'Slug',
             'name' => 'Name',
         ];
     }

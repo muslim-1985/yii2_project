@@ -4,10 +4,12 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\Images;
+use app\modules\admin\models\ImagesUpload;
 use app\modules\admin\models\ImagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ImagesController implements the CRUD actions for Images model.
@@ -66,7 +68,7 @@ class ImagesController extends Controller
         $model = new Images();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

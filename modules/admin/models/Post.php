@@ -31,10 +31,10 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'content'], 'required'],
+            [['title', 'slug', 'description', 'content'], 'required'],
             [['content'], 'string'],
             [['cat_id'], 'integer'],
-            [['title', 'description'], 'string', 'max' => 255],
+            [['title', 'slug', 'description'], 'string', 'max' => 255],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ];
     }
@@ -47,6 +47,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Заголовок',
+            'slug' => 'Slug',
             'description' => 'Описание',
             'content' => 'Контент',
             'image' => 'Изображение',

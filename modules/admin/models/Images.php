@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "images".
@@ -23,18 +24,19 @@ class Images extends \yii\db\ActiveRecord
     {
         return 'images';
     }
-
+    public $imageFile;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['image', 'cat_img_id'], 'required'],
-            [['cat_img_id'], 'integer'],
+            [['idimage'], 'required'],
+            [['idimage'], 'string'],
             [['title'], 'string', 'max' => 150],
-            [['image'], 'string', 'max' => 50],
-            [['cat_img_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatImg::className(), 'targetAttribute' => ['cat_img_id' => 'id']],
+            [['image'], 'string', 'max' => 150],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['idimage'], 'exist', 'skipOnError' => true, 'targetClass' => Imgcats::className(), 'targetAttribute' => ['idimage' => 'id']],
         ];
     }
 
@@ -45,9 +47,10 @@ class Images extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'image' => 'Image',
-            'cat_img_id' => 'Cat Img ID',
+            'title' => 'Заголовок',
+            'image' => 'Изображение',
+            'imageFile' => 'Изображение',
+            'idimage' => 'Категория изображения',
         ];
     }
 
@@ -56,6 +59,73 @@ class Images extends \yii\db\ActiveRecord
      */
     public function getCatImg()
     {
-        return $this->hasOne(CatImg::className(), ['id' => 'cat_img_id']);
+        return $this->hasOne(Imgcats::className(), ['id' => 'idimage']);
+    }
+
+    //вызываем функцию в _form.php
+    public function createImg()
+    {
+        if (Yii::$app->request->isPost) {
+            $file = $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
+            $this->saveImage($this->uploadFile($file, $this->image));
+        }
+    }
+
+    public function saveImage($filename)
+    {
+        $this->image = $filename;
+        return $this->save(false);
+    }
+
+    public function getImage()
+    {
+        return ($this->image) ? \Yii::getAlias('@web') . '/img/' . $this->image : \Yii::getAlias('@web') . '/img/browser.png';
+    }
+
+    public function deleteImage()
+    {
+        $imageUploadModel = new ImagesUpload();
+        $imageUploadModel->deleteCurrentImage($this->image);
+    }
+
+    public function uploadFile(UploadedFile $file, $currentImage)
+    {
+        $this->imageFile = $file;
+        if($this->validate()) {
+            $this->deleteCurrentImage($currentImage);
+            return $this->saveImageUpload();
+        }
+
+    }
+    private function getFolder ()
+    {
+        return \Yii::getAlias('@web') . 'img/';
+    }
+    private function generateFilename()
+    {
+        return strtolower(md5(uniqid($this->imageFile->baseName)) . '.' . $this->imageFile->extension);
+    }
+
+    public function deleteCurrentImage($currentImage)
+    {
+        if($this->fileExists($currentImage))
+        {
+            unlink($this->getFolder() . $currentImage);
+        }
+    }
+
+    public function fileExists($currentImage)
+    {
+        if(!empty($currentImage) && $currentImage != null)
+        {
+            return file_exists($this->getFolder() . $currentImage);
+        }
+    }
+
+    public function saveImageUpload()
+    {
+        $filename = $this->generateFilename();
+        $this->imageFile->saveAs($this->getFolder() . $filename);
+        return $filename;
     }
 }

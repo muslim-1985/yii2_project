@@ -19,7 +19,7 @@ class PostController extends AppController
     public function actionIndex () {
         $query = Posts::find()->select('id, title, description, image, cat_id')->orderBy('id DESC');
         $queryCats = Cats::find()->all();
-        $oneCats = Cats::find()->where(['id'=>'1'])->one();
+        $oneCats = Cats::find()->with('posts')->where(['slug'=>'sqltable'])->one();
         $pages = new Pagination (['totalCount' => $query->count(), 'pageSize' => 2]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
 

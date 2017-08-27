@@ -1,7 +1,9 @@
 <?php
 
+use app\modules\admin\models\Images;
 use yii\helpers\Html;
 use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\ImagesSearch */
@@ -26,8 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'image',
-            'cat_img_id',
+            [
+                'format' => 'html',
+                'label' => 'Изображение',
+                'value' => function($data){
+                    return Html::img($data->getImage(), ['width'=>200]);
+                }
+            ],
+            [
+                'attribute' => 'idimage',
+                'value' => 'catImg.name',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

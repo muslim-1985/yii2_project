@@ -18,7 +18,9 @@ use vova07\imperavi\Widget;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'description')->textArea(['maxlength' => true, 'rows' => 6]) ?>
 
     <?= $form->field($model, 'content')->widget(Widget::className(), [
         'settings' => [

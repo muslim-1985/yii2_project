@@ -29,6 +29,7 @@ use yii\grid\GridView;
 
                         'id',
                         'title',
+                        'slug',
                         'description',
                         'content:ntext',
                         [

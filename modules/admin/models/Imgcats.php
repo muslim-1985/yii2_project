@@ -49,6 +49,6 @@ class Imgcats extends \yii\db\ActiveRecord
      */
     public function getImages()
     {
-        return $this->hasMany(Images::className(), ['cat_img_id' => 'id']);
+        return $this->hasMany(Images::className(), ['idimage' => 'id']);
     }
 }
