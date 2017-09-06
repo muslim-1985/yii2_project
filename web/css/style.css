@@ -131,7 +131,9 @@ a:focus {
 .dropdown-menu {
 	background: #384452;
 }
-
+.dropdown-menu {
+	background-color: white !important;
+}
 .dropdown-menu > li > a {
 	color: white;
 	font-weight: 700;

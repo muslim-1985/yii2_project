@@ -11,6 +11,7 @@ use app\models\Cats;
 use app\models\Posts;
 use yii\data\Pagination;
 
+
 class PostController extends AppController
 {
     /**

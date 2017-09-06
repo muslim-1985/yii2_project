@@ -5,12 +5,12 @@ namespace app\modules\admin\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\Imgcats;
+use app\modules\admin\models\Tag;
 
 /**
- * ImcatsSearch represents the model behind the search form about `app\modules\admin\models\Imgcats`.
+ * TagSearch represents the model behind the search form about `app\modules\admin\models\Tag`.
  */
-class ImcatsSearch extends Imgcats
+class TagSearch extends Tag
 {
     /**
      * @inheritdoc
@@ -19,8 +19,7 @@ class ImcatsSearch extends Imgcats
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
-            [['slug'], 'safe'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class ImcatsSearch extends Imgcats
      */
     public function search($params)
     {
-        $query = Imgcats::find();
+        $query = Tag::find();
 
         // add conditions that should always apply here
 
@@ -63,7 +62,7 @@ class ImcatsSearch extends Imgcats
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

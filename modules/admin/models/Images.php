@@ -84,8 +84,7 @@ class Images extends \yii\db\ActiveRecord
 
     public function deleteImage()
     {
-        $imageUploadModel = new ImagesUpload();
-        $imageUploadModel->deleteCurrentImage($this->image);
+        $this->deleteCurrentImage($this->image);
     }
 
     public function uploadFile(UploadedFile $file, $currentImage)

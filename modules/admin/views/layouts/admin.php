@@ -40,6 +40,7 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Посты', 'url' => ['/admin']],
+                ['label' => 'Теги', 'url' => ['/admin/tag']],
                 ['label' => 'Медиа', 'url' => ['/admin/images']],
                 ['label' => 'Категории',
                     'options' => ['class' => 'dropdown'],

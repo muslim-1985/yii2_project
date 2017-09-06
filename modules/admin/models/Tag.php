@@ -1,25 +1,25 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
 /**
- * This is the model class for table "categories".
+ * This is the model class for table "tag".
  *
  * @property integer $id
- * @property string $name
+ * @property string $title
  *
- * @property Post[] $posts
+ * @property PostTag[] $postTags
  */
-class Categories extends \yii\db\ActiveRecord
+class Tag extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'categories';
+        return 'tag';
     }
 
     /**
@@ -28,8 +28,8 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'required'],
+            [['title'], 'string', 'max' => 100],
         ];
     }
 
@@ -40,15 +40,15 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Title',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPosts()
+    public function getPostTags()
     {
-        return $this->hasMany(Post::className(), ['cat_id' => 'id']);
+        return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
     }
 }

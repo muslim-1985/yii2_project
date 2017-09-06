@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <?php $this->title = 'Posts';
@@ -21,6 +21,7 @@ use yii\grid\GridView;
                 <p>
                     <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
                 </p>
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -30,8 +31,10 @@ use yii\grid\GridView;
                         'id',
                         'title',
                         'slug',
+                        'autor',
+                        'date',
+                        'link',
                         'description',
-                        'content:ntext',
                         [
                             'attribute' => 'cat_id',
                             'value' => 'cat.name',

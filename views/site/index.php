@@ -9,14 +9,25 @@ $this->title = 'My Yii Application';
 <div id="headerwrap">
     <div class="container">
         <div class="row">
+            <?php if(!empty($posts)): ?>
+                <?php foreach ($posts as $post):?>
+                        <h2><?= $post->title ?></h2>
+                        <?php foreach ($post->tags as $tag): ?>
+                            <p><?= $tag->title ?></p>
+                        <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
             <div class="col-lg-8 col-lg-offset-2">
-                <h3>Show your work with this beautiful theme</h3>
-                <h1>Eyecatching Bootstrap 3 Theme.</h1>
-                <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h5>
-                <h5>More Lorem Ipsum added here too.</h5>
+                <h3><?= $queryInfo->site_name ?></h3>
+                <h1><?= $queryInfo->site_name ?></h1>
+                <h5><?= $queryInfo->description ?></h5>
             </div>
             <div class="col-lg-8 col-lg-offset-2 himg">
-                <img src="img/browser.png" class="img-responsive">
+                <?php if(!empty($queryImgCats)): ?>
+                    <?php foreach ($queryImgCats->images as $imgCats):?>
+                        <img src="<?= $imgCats->getImage() ?>" alt="<?= $imgCats->title ?>">
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div><!-- /row -->
     </div> <!-- /container -->
@@ -28,24 +39,16 @@ $this->title = 'My Yii Application';
 <div id="service">
     <div class="container">
         <div class="row centered">
-            <div class="col-md-4">
-                <i class="fa fa-heart-o"></i>
-                <h4>Handsomely Crafted</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <p><br/><a href="#" class="btn btn-theme">More Info</a></p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-flask"></i>
-                <h4>Retina Ready</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <p><br/><a href="#" class="btn btn-theme">More Info</a></p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-trophy"></i>
-                <h4>Quality Theme</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <p><br/><a href="#" class="btn btn-theme">More Info</a></p>
-            </div>
+            <?php if(!empty($cats)): ?>
+                <?php foreach ($cats->posts as $post):?>
+                    <div class="col-md-4">
+                        <i class="<?= $post->title ?>"></i>
+                        <h4><?= $post->description ?></h4>
+                        <?= $post->content ?>
+                        <p><br/><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>" class="btn btn-theme">More Info</a></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div><! --/container -->
 </div><! --/service -->
@@ -54,145 +57,32 @@ $this->title = 'My Yii Application';
  PORTFOLIO SECTION
  ***************************************************************************************************************** -->
 <div id="portfoliowrap">
-    <h3>LATEST WORKS</h3>
-
+    <?php if(!empty($portfolio)): ?>
+    <h3><?= $portfolio->name ?></h3>
     <div class="portfolio-centered">
         <div class="recentitems portfolio">
-            <div class="portfolio-item graphic-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_09.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_09.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item web-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_02.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Web Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_02.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item graphic-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_03.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_03.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item graphic-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_04.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_04.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item books">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_05.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Book Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_05.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item graphic-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_06.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_06.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item books">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_07.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Book Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_07.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item graphic-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_08.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_08.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item web-design">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_01.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Web Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_01.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-            <div class="portfolio-item books">
-                <div class="he-wrap tpl6">
-                    <img src="img/portfolio/portfolio_10.jpg" alt="">
-                    <div class="he-view">
-                        <div class="bg a0" data-animate="fadeIn">
-                            <h3 class="a1" data-animate="fadeInDown">A Book Design Item</h3>
-                            <a data-rel="prettyPhoto" href="img/portfolio/portfolio_10.jpg" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                            <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        </div><!-- he bg -->
-                    </div><!-- he view -->
-                </div><!-- he wrap -->
-            </div><!-- end col-12 -->
-
-        </div><!-- portfolio -->
-    </div><!-- portfolio container -->
-</div><!--/Portfoliowrap -->
-
-
+                <?php foreach ($portfolio->posts as $post):?>
+                    <div class="portfolio-item <?php foreach ($post->tags as $tag) {
+                                                        echo ' ';
+                                                        echo  $tag->title;
+                                                    }
+                                                 ?>">
+                        <div class="he-wrap tpl6">
+                            <img src="<?= $post->getImage(); ?>" alt="">
+                            <div class="he-view">
+                                <div class="bg a0" data-animate="fadeIn">
+                                    <h3 class="a1" data-animate="fadeInDown"><?= $post->title ?></h3>
+                                    <a data-rel="prettyPhoto" href="<?= $post->getImage(); ?>" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
+                                    <a href="<?= Url::to(['portfolio/view', 'id'=>$post->id]) ?>" class="dmbutton a2"  data-animate="fadeInUp"><i class="fa fa-link"></i></a>
+                                </div><!-- he bg -->
+                            </div><!-- he view -->
+                        </div><!-- he wrap -->
+                    </div><!-- end col-12 -->
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 <!-- *****************************************************************************************************************
  MIDDLE CONTENT
  ***************************************************************************************************************** -->
@@ -220,7 +110,7 @@ $this->title = 'My Yii Application';
             <div class="hline"></div>
             <?php if(!empty($posts)): ?>
             <?php foreach ($posts as $post):?>
-                        <p><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>"><?= $post->title ?></a></p>
+                    <p><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>"><?= $post->title ?></a></p>
             <?php endforeach; ?>
             <?php endif; ?>
         </div>
