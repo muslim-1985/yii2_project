@@ -98,7 +98,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'post/<id:[0-9]>'=>'post/view'
+                '/' => 'site/index',
+                '/about' => 'site/about',
+                '/contact' => 'site/contact',
+                'post/view/id/<id:[0-9]>'=>'post/view?<id:[0-9]>'
             ],
         ],
     ],

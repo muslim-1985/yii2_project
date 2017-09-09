@@ -38,18 +38,19 @@ NavBar::begin([
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact',
-            'url' => ['/site/contact'],
+        ['label' => 'ДОМАШНЯЯ', 'url' => ['/']],
+        ['label' => 'О НАС', 'url' => ['/about']],
+        ['label' => 'КОНТАКТЫ', 'url' => ['/contact']],
+        ['label' => 'СТРАНИЦЫ',
+            'url' => ['/contact'],
             'options' => ['class' => 'dropdown'],
             'items' => [
-                ['label' => 'Услуги', 'url' => ['/site/contains']],
-                ['label' => 'Преимущества', 'url' => ['/site/contains']],
+                ['label' => 'БЛОГ', 'url' => ['/post/']],
+                ['label' => 'ПОРТФОЛИО', 'url' => ['/portfolio/']],
             ]
         ],
         Yii::$app->user->isGuest ? (
-        ['label' => 'Login', 'url' => ['/site/login']]
+        ['label' => 'Login', 'url' => ['/admin']]
         ) : (
             '<li>'
             . Html::beginForm(['/site/logout'], 'post')

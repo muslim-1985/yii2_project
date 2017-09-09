@@ -29,9 +29,9 @@ class PortfolioController extends AppController
             $tagsIdArr[] = $tag->id;
         }
         $query = Posts::find()
-            ->joinWith('tags')
-            ->where(['tag_id' => $tagsIdArr])
-            ->all();
+                ->joinWith('tags')
+                ->where(['tag_id' => $tagsIdArr])
+                ->all();
         return $this->render('view', compact('post','query'));
     }
 }

@@ -69,7 +69,7 @@ class SiteController extends Controller
     {
         $query = Posts::find()->with('tags')->select('id, title, description')->orderBy('id DESC');
         $posts = $query->limit('5')->all();
-        $queryPostCats = Cats::find();
+        $queryPostCats = Cats::find()->with('posts.tags');
         $cats = $queryPostCats->where(['slug'=>'yii2'])->one();
         $portfolio = $queryPostCats->where(['slug'=>'portfolio'])->one();
         $queryImgCats = Imgcats::find()->with('images')->where(['slug'=>'header'])->one();
@@ -83,5 +83,17 @@ class SiteController extends Controller
         $post = Posts::findOne($id);
 
         return $this->render('view', compact('post'));
+    }
+    public function actionAbout () {
+        $id = \Yii::$app->request->get('id');
+        $post = Posts::findOne($id);
+
+        return $this->render('about', compact('post'));
+    }
+    public function actionContact () {
+        $id = \Yii::$app->request->get('id');
+        $post = Posts::findOne($id);
+
+        return $this->render('contact', compact('post'));
     }
 }

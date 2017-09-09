@@ -9,14 +9,6 @@ $this->title = 'My Yii Application';
 <div id="headerwrap">
     <div class="container">
         <div class="row">
-            <?php if(!empty($posts)): ?>
-                <?php foreach ($posts as $post):?>
-                        <h2><?= $post->title ?></h2>
-                        <?php foreach ($post->tags as $tag): ?>
-                            <p><?= $tag->title ?></p>
-                        <?php endforeach; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
             <div class="col-lg-8 col-lg-offset-2">
                 <h3><?= $queryInfo->site_name ?></h3>
                 <h1><?= $queryInfo->site_name ?></h1>
@@ -109,9 +101,9 @@ $this->title = 'My Yii Application';
             <h4>Latest Posts</h4>
             <div class="hline"></div>
             <?php if(!empty($posts)): ?>
-            <?php foreach ($posts as $post):?>
-                    <p><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>"><?= $post->title ?></a></p>
-            <?php endforeach; ?>
+                <?php foreach ($posts as $post):?>
+                        <p><a href="<?= Url::to(['post/view', 'id'=>$post->id]) ?>"><?= $post->title ?></a></p>
+                <?php endforeach; ?>
             <?php endif; ?>
         </div>
 

@@ -36,6 +36,14 @@ use yii\grid\GridView;
                         'link',
                         'description',
                         [
+                            'attribute' => 'tag_id',
+                            'value' => function($data) {
+                                foreach ($data->tags as $tag) {
+                                    return $tag->title;
+                                }
+                            }
+                        ],
+                        [
                             'attribute' => 'cat_id',
                             'value' => 'cat.name',
                         ],

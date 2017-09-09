@@ -9,6 +9,7 @@
 namespace app\controllers;
 use app\models\Cats;
 use app\models\Posts;
+use app\models\Tags;
 use yii\data\Pagination;
 
 
@@ -18,18 +19,25 @@ class PostController extends AppController
      * @return string
      */
     public function actionIndex () {
-        $query = Posts::find()->select('id, title, description, image, cat_id')->orderBy('id DESC');
-        $queryCats = Cats::find()->all();
-        $oneCats = Cats::find()->with('posts')->where(['slug'=>'sqltable'])->one();
-        $pages = new Pagination (['totalCount' => $query->count(), 'pageSize' => 2]);
+        $query = Posts::find()->select('id, title, description, content, date, image, cat_id')->orderBy('id DESC');
+        $pages = new Pagination (['totalCount' => $query->count(), 'pageSize' => 5]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $tags = Tags::find()->all();
 
-        return $this->render('index', compact('posts','pages', 'post','queryCats','oneCats'));
+        return $this->render('index', compact('posts','pages','tags'));
     }
 
     public function actionView () {
        $id = \Yii::$app->request->get('id');
         $post = Posts::findOne($id);
-        return $this->render('view', compact('post'));
+        $tags = Tags::find()->all();
+        return $this->render('view', compact('post','tags'));
+    }
+    public function actionTag ()
+    {
+        $id = \Yii::$app->request->get('id');
+        $tag = Tags::findOne($id);
+        $tags = Tags::find()->all();
+        return $this->render('tag', compact('tag','tags'));
     }
 }
